@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import {Button} from 'react-bootstrap'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import AddProduct from './AddProduct'
+import EditProduct from './EditProduct'
+import Login from './Login'
+import Register from './Register'
+import Protected from './Protected'
+import ProductList from './ProductList'
+import SearchProduct from './SearchProduct'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+ return(
+  <div className='App'>
+    <BrowserRouter>
+    <Switch>
+    <Route  path="/login">
+      <Login />
+    </Route>
+    <Route path="/register">
+      <Register />
+    </Route>
+    <Route path="/add">
+      <>
+      <Protected Cmp={AddProduct} />
+      </>      
+    </Route>
+    <Route path="/update/:id">
+    <>
+      <Protected Cmp={EditProduct} />
+      </>
+    </Route>
+    <Route path="/search/">
+    <>
+      <Protected Cmp={SearchProduct} />
+      </>
+    </Route>
+    <Route path="/" >
+      <>
+      <Protected Cmp={ProductList} />
+      </>  
+    </Route>   
+    </Switch>
+    </BrowserRouter>
+  </div>
+ )
 }
 
 export default App;
